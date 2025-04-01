@@ -26,7 +26,8 @@ const closePanel = () => {
         >
           Close {{ visible }}
         </button>
-        <h2>{{ title }}</h2> 
+        <h2>{{ title }}</h2>
+        <slot name="content"></slot>
       </div>
     </div>
   </div>

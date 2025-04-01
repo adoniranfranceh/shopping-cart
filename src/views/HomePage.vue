@@ -1,17 +1,31 @@
 <script setup>
 import { ref } from 'vue';
 import SlidePanel from '@/components/shared/SlidePanel.vue'
-const cartVisible = ref(false);
+import { generatorRandomProduct } from '@/utils/generator';
+import Cart from '@/components/modules/Cart.vue'
 
-const changeCartVisibility = () => {
+const cartVisible = ref(false);
+const products = ref([])
+
+const changeCartVisibilityClicked = () => {
   cartVisible.value = !cartVisible.value;
-}
+};
+
+const addProductToCartClicked = () => {
+  const product = generatorRandomProduct();
+
+  products.value.push(product);
+  changeCartVisibilityClicked();
+};
+
 </script>
 
 <template>
   <div class="home">
     <h1>Shopping Cart</h1>
-    <button class="btn success">
+    <button class="btn success"
+      @click="addProductToCartClicked"
+    >
       Add to Cart
     </button>
     <button class="btn error ml-1">
@@ -19,16 +33,19 @@ const changeCartVisibility = () => {
     </button>
     <button 
       class="btn error ml-1"
-      @click="changeCartVisibility()"
+      @click="changeCartVisibilityClicked()"
     >
       Open Cart
     </button>
 
     <SlidePanel
-      title = "Cart"
+      title="Cart"
       :visible="cartVisible"
-      @update:visible="changeCartVisibility()"
+      @update:visible="changeCartVisibilityClicked()"
     >
+      <template #content>
+        <Cart :products="products"/>
+      </template>
     </SlidePanel>
   </div>
 </template>
