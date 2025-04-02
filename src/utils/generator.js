@@ -25,7 +25,7 @@ export const generatorRandomProduct = () => {
       quantity: 1
     },
     {
-      id: 1,
+      id: 5,
       name: 'Product 5',
       price: 50,
       quantity: 1

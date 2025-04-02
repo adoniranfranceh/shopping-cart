@@ -13,24 +13,34 @@ const changeCartVisibilityClicked = () => {
 
 const addProductToCartClicked = () => {
   const product = generatorRandomProduct();
+  
+  if (productExists(product.id)){
+    return incrementQuantityClicked(product.id);
+  };
 
   products.value.push(product);
   changeCartVisibilityClicked();
+};
+
+const productExists = (id) => {
+  return products.value.some(product => product.id === id);
 };
 
 const removeProductFromCartClicked = (index) => {
   products.value.splice(index, 1);
 };
 
-const incrementQuantityClicked = (index) => {
-  products.value[index].quantity++;
-}
+const incrementQuantityClicked = (id) => {
+  const product = products.value.find(p => p.id === id)
 
-const decrementQuantityClicked = (index) => {
-  const product = products.value[index]
+  product.quantity++;
+};
+
+const decrementQuantityClicked = (id) => {
+  const product = products.value.find(p => p.id === id)
 
   if (product.quantity === 1){
-    removeProductFromCartClicked(index)
+    removeProductFromCartClicked(id)
     return;
   }
   product.quantity--;

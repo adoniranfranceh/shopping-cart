@@ -28,17 +28,15 @@ const removeCartProductClicked = (product) => {
 }
 
 const incrementQuantityClicked = (product) => { 
-  const index = props.products.findIndex((p) => p.id === product.id);
-  if (index === -1) return;
+  if (!props.products.some((p) => p.id === product.id)) return;
 
-  emit('increment:quantity', index);
+  emit('increment:quantity', product.id);
 }
 
 const decrementQuantityClicked = (product) => {
-  const index = props.products.findIndex((p) => p.id === product.id);
-  if (index === -1) return;
+  if (!props.products.some((p) => p.id === product.id)) return;
 
-  emit('decrement:quantity', index)
+  emit('decrement:quantity', product.id)
 }
 
 </script>
