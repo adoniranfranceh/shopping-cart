@@ -18,6 +18,10 @@ const addProductToCartClicked = () => {
   changeCartVisibilityClicked();
 };
 
+const removeProductFromCartClicked = (index) => {
+  products.value.splice(index, 1);
+};
+
 </script>
 
 <template>
@@ -44,7 +48,10 @@ const addProductToCartClicked = () => {
       @update:visible="changeCartVisibilityClicked()"
     >
       <template #content>
-        <Cart :products="products"/>
+        <Cart
+         :products="products"
+         @remove:product="removeProductFromCartClicked"
+        />
       </template>
     </SlidePanel>
   </div>

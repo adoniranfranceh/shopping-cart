@@ -32,7 +32,7 @@ const removeCartProductClicked = (product) => {
       >
         <div class="product_title">
           <h3>{{ product.name }}</h3>
-          <button @click="removeCartProductClicked">Remove</button>
+          <button @click="removeCartProductClicked(product)">Remove</button>
         </div>
         <p>
           <b>Price: {{ product.price }}</b>
