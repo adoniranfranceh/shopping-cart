@@ -22,6 +22,20 @@ const removeProductFromCartClicked = (index) => {
   products.value.splice(index, 1);
 };
 
+const incrementQuantityClicked = (index) => {
+  products.value[index].quantity++;
+}
+
+const decrementQuantityClicked = (index) => {
+  const product = products.value[index]
+
+  if (product.quantity === 1){
+    removeProductFromCartClicked(index)
+    return;
+  }
+  product.quantity--;
+}
+
 </script>
 
 <template>
@@ -51,7 +65,9 @@ const removeProductFromCartClicked = (index) => {
         <Cart
          :products="products"
          @remove:product="removeProductFromCartClicked"
-        />
+         @increment:quantity="incrementQuantityClicked"
+         @decrement:quantity="decrementQuantityClicked"
+       />
       </template>
     </SlidePanel>
   </div>

@@ -8,7 +8,11 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['remove:product'])
+const emit = defineEmits([
+  'remove:product',
+  'increment:quantity',
+  'decrement:quantity'
+])
 
 const total = computed(() => {
   return props.products.reduce((acc, product) => {
@@ -18,8 +22,23 @@ const total = computed(() => {
 
 const removeCartProductClicked = (product) => {
   const index = props.products.findIndex((p) => p.id === product.id);
+  if (index === -1) return;
 
   emit('remove:product', index);
+}
+
+const incrementQuantityClicked = (product) => { 
+  const index = props.products.findIndex((p) => p.id === product.id);
+  if (index === -1) return;
+
+  emit('increment:quantity', index);
+}
+
+const decrementQuantityClicked = (product) => {
+  const index = props.products.findIndex((p) => p.id === product.id);
+  if (index === -1) return;
+
+  emit('decrement:quantity', index)
 }
 
 </script>
@@ -38,9 +57,9 @@ const removeCartProductClicked = (product) => {
           <b>Price: {{ product.price }}</b>
         </p>
         <div class="quantity">
-         <button>+</button>
+          <button @click="decrementQuantityClicked(product)">-</button>
           <span>{{ product.quantity }}</span>
-          <button>-</button>
+          <button @click="incrementQuantityClicked(product)">+</button>
        </div>
       </li>
     </ul>
